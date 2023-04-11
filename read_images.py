@@ -22,9 +22,9 @@ def loadImage(filename):
     _ ,file_extension = os.path.splitext(filename)
 
     if file_extension == '.png': 
-        img = tf.image.decode_png(img, channels=1)
+        img = tf.image.decode_png(img, channels=3)
     elif file_extension == '.jpg':
-        img = tf.image.decode_jpeg(img, channels=1)
+        img = tf.image.decode_jpeg(img, channels=3)
     else: 
         print("Couldn't decode")
         return

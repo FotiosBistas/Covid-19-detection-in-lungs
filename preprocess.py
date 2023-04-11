@@ -49,5 +49,13 @@ validation_dataset = tf.data.Dataset.from_tensor_slices((validation_images, vali
 
 
 
+train_dataset = train_dataset.shuffle(buffer_size=len(train_images))
+test_dataset = test_dataset.shuffle(buffer_size=len(test_images))
+validation_dataset = validation_dataset.shuffle(buffer_size=len(validation_dataset))
+
+train_dataset = train_dataset.batch(BATCH_SIZE)
+test_dataset = test_dataset.batch(BATCH_SIZE)
+validation_dataset = validation_dataset.batch(BATCH_SIZE)
+
 #train_dataset = train_dataset.batch(BATCH_SIZE)
 #train_dataset = train_dataset.map()
