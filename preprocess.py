@@ -1,9 +1,11 @@
 from read_images import readImageNames 
 import tensorflow as tf 
-from tensorflow.keras import datasets 
+from tensorflow.keras import datasets,layers 
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
 from read_images import loadImage
 import numpy as np 
-BATCH_SIZE = 32 
+BATCH_SIZE =64
 
 
 
@@ -48,7 +50,6 @@ test_dataset = tf.data.Dataset.from_tensor_slices((test_images, test_labels))
 validation_dataset = tf.data.Dataset.from_tensor_slices((validation_images, validation_labels))
 
 
-
 train_dataset = train_dataset.shuffle(buffer_size=len(train_images))
 test_dataset = test_dataset.shuffle(buffer_size=len(test_images))
 validation_dataset = validation_dataset.shuffle(buffer_size=len(validation_dataset))
@@ -59,3 +60,14 @@ validation_dataset = validation_dataset.batch(BATCH_SIZE)
 
 #train_dataset = train_dataset.batch(BATCH_SIZE)
 #train_dataset = train_dataset.map()
+
+
+data_augmentation = tf.keras.Sequential([
+  layers.RandomFlip("horizontal_and_vertical"),
+  layers.RandomRotation(0.2),
+])
+
+
+train_dataset = train_dataset.map(
+    lambda x,y : (data_augmentation(x, training=True),y)
+)
