@@ -67,7 +67,6 @@ data_augmentation = tf.keras.Sequential([
   layers.RandomRotation(0.2),
 ])
 
+train_dataset_augmented = train_dataset.map(lambda x, y: (data_augmentation(x), y))
 
-train_dataset = train_dataset.map(
-    lambda x,y : (data_augmentation(x, training=True),y)
-)
+train_dataset = train_dataset.concatenate(train_dataset_augmented)
