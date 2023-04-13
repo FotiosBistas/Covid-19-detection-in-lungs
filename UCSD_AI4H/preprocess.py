@@ -9,8 +9,8 @@ BATCH_SIZE =64
 
 
 
-covid_directory = "C:\\Users\\fotis\\GitHub\\Covid-19-detection-in-lungs\\CT_COVID\\"
-non_covid_directory = "C:\\Users\\fotis\\GitHub\\Covid-19-detection-in-lungs\\CT_NonCOVID\\"
+covid_directory = "C:\\Users\\fotis\\GitHub\\Covid-19-detection-in-lungs\\UCSD_AI4H\\CT_COVID\\"
+non_covid_directory = "C:\\Users\\fotis\\GitHub\\Covid-19-detection-in-lungs\\UCSD_AI4H\\CT_NonCOVID\\"
 
 test_covid_image_names = readImageNames("CT_COVID_IMG_NAMES/testCT_COVID.txt")
 train_covid_image_names = readImageNames("CT_COVID_IMG_NAMES/trainCT_COVID.txt")
@@ -62,11 +62,14 @@ validation_dataset = validation_dataset.batch(BATCH_SIZE)
 #train_dataset = train_dataset.map()
 
 
-data_augmentation = tf.keras.Sequential([
-  layers.RandomFlip("horizontal_and_vertical"),
-  layers.RandomRotation(0.2),
-])
+#data_augmentation = tf.keras.Sequential([
+#  layers.RandomFlip("horizontal_and_vertical"),
+#  layers.RandomRotation(0.2),
+#])
+#
+#train_dataset_augmented = train_dataset.map(lambda x, y: (data_augmentation(x), y))
+#
+#train_dataset = train_dataset.concatenate(train_dataset_augmented)
 
-train_dataset_augmented = train_dataset.map(lambda x, y: (data_augmentation(x), y))
-
-train_dataset = train_dataset.concatenate(train_dataset_augmented)
+for image,label in train_dataset.take(1): 
+    print(image,label)

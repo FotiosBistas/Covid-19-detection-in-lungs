@@ -19,10 +19,12 @@ model = tf.keras.Sequential([
     layers.Conv2D(128, (3, 3), activation='relu',padding='same'),
     layers.BatchNormalization(), 
     layers.MaxPooling2D((2, 2)),
+    layers.Conv2D(256, (3, 3), activation='relu',padding='same'),
+    layers.Conv2D(256, (3, 3), activation='relu',padding='same'),
+    layers.BatchNormalization(), 
+    layers.MaxPooling2D((2, 2)),
     layers.Flatten(),
-    layers.Dense(64, activation='relu'),
-    
-    layers.Dense(32, activation='relu'),
+    layers.Dense(256, activation='relu'),
     layers.Dense(1, activation='sigmoid')
 ])
 

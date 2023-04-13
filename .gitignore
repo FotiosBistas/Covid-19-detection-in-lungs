@@ -128,7 +128,14 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /zip
-/CT_COVID_IMG_NAMES 
-/CT_NON_COVID_IMG_NAMES
-/CT_COVID 
-/CT_NonCOVID
+UCSD_AI4H/CT_COVID_IMG_NAMES 
+UCSD_AI4H/CT_NON_COVID_IMG_NAMES
+UCSD_AI4H/CT_COVID 
+UCSD_AI4H/CT_NonCOVID
+
+SARS_CoV_2_CT/train 
+SARS_CoV_2_CT/test 
+SARS_CoV_2_CT/validation
+
+SARS_CoV_2_CT/covid
+SARS_CoV_2_CT/non_covid
