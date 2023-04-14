@@ -12,19 +12,11 @@ model = tf.keras.Sequential([
     layers.Conv2D(32, (3, 3), activation='relu',padding='same', input_shape=(224, 224, 3)),
     layers.MaxPooling2D((2, 2)),
     layers.Conv2D(64, (3, 3), activation='relu',padding='same'),
-    layers.Conv2D(64, (3, 3), activation='relu',padding='same'),
-    layers.BatchNormalization(), 
     layers.MaxPooling2D((2, 2)),
     layers.Conv2D(128, (3, 3), activation='relu',padding='same'),
-    layers.Conv2D(128, (3, 3), activation='relu',padding='same'),
-    layers.BatchNormalization(), 
-    layers.MaxPooling2D((2, 2)),
-    layers.Conv2D(256, (3, 3), activation='relu',padding='same'),
-    layers.Conv2D(256, (3, 3), activation='relu',padding='same'),
-    layers.BatchNormalization(), 
     layers.MaxPooling2D((2, 2)),
     layers.Flatten(),
-    layers.Dense(256, activation='relu'),
+    layers.Dense(64, activation='relu'),
     layers.Dense(1, activation='sigmoid')
 ])
 
@@ -40,7 +32,7 @@ model.compile(
     )
 
 # Train the model
-history = model.fit(train_dataset, epochs=20, validation_data=validation_dataset,
+history = model.fit(train_dataset, epochs=10, validation_data=validation_dataset,
                     callbacks=[checkpoint, history])
 # Compile the model
 model.compile(optimizer='adam',
