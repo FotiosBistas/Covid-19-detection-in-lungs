@@ -8,13 +8,16 @@ train_dir = 'train'
 val_dir = 'validation'
 test_dir = 'test'
 
+covid_dir = 'covid'
+non_covid_dir = 'non_covid'
+
 # Create the validation and test directories if they do not exist
 os.makedirs(val_dir, exist_ok=True)
 os.makedirs(test_dir, exist_ok=True)
 
 # Create lists of file paths for the covid and non-covid images
-covid_files = [os.path.join(train_dir, 'covid', f) for f in os.listdir(os.path.join(train_dir, 'covid'))]
-non_covid_files = [os.path.join(train_dir, 'non_covid', f) for f in os.listdir(os.path.join(train_dir, 'non_covid'))]
+covid_files = [f for f in os.listdir('covid')]
+non_covid_files = [f for f in os.listdir('non_covid')]
 
 
 covid_files = np.array(covid_files)
@@ -50,7 +53,6 @@ print(len(covid_testing_files))
 print(len(covid_validation_files))
 print(len(covid_training_files))
 
-print(len(non_covid_files))
 
 non_covid_validation_files = non_covid_files[:non_covid_validation_number]
 non_covid_testing_files = non_covid_files[non_covid_validation_number: (non_covid_validation_number + non_covid_testing_number)]
@@ -60,3 +62,27 @@ non_covid_training_files = non_covid_files[(non_covid_validation_number + non_co
 print(len(non_covid_testing_files))
 print(len(non_covid_validation_files))
 print(len(non_covid_training_files))
+
+# Create train, validation, and test directories for both covid and non-covid images
+os.makedirs(os.path.join(train_dir, covid_dir), exist_ok=True)
+os.makedirs(os.path.join(train_dir, non_covid_dir), exist_ok=True)
+os.makedirs(os.path.join(val_dir, covid_dir), exist_ok=True)
+os.makedirs(os.path.join(val_dir, non_covid_dir), exist_ok=True)
+os.makedirs(os.path.join(test_dir, covid_dir), exist_ok=True)
+os.makedirs(os.path.join(test_dir, non_covid_dir), exist_ok=True)
+
+# Copy covid images to train, validation, and test directories
+for file in covid_training_files:
+    copyfile(os.path.join(covid_dir, file), os.path.join(train_dir, covid_dir, file))
+for file in covid_validation_files:
+    copyfile(os.path.join(covid_dir, file), os.path.join(val_dir, covid_dir, file))
+for file in covid_testing_files:
+    copyfile(os.path.join(covid_dir, file), os.path.join(test_dir, covid_dir, file))
+
+# Copy non-covid images to train, validation, and test directories
+for file in non_covid_training_files:
+    copyfile(os.path.join(non_covid_dir, file), os.path.join(train_dir, non_covid_dir, file))
+for file in non_covid_validation_files:
+    copyfile(os.path.join(non_covid_dir, file), os.path.join(val_dir, non_covid_dir, file))
+for file in non_covid_testing_files:
+    copyfile(os.path.join(non_covid_dir, file), os.path.join(test_dir, non_covid_dir, file))
