@@ -16,6 +16,7 @@ test_dataset = tf.keras.utils.image_dataset_from_directory(
     test_directory,
     label_mode='binary',
     batch_size=batchSize,
+    color_mode='grayscale',
     image_size=imageSize,
 )
 
@@ -23,6 +24,7 @@ train_dataset = tf.keras.utils.image_dataset_from_directory(
     train_directory,
     label_mode='binary',
     batch_size=batchSize,
+    color_mode='grayscale',
     image_size= imageSize,
 )
 
@@ -30,6 +32,7 @@ validation_dataset = tf.keras.utils.image_dataset_from_directory(
     validation_directory,
     label_mode='binary',
     batch_size=batchSize,
+    color_mode='grayscale',
     image_size=imageSize,
 )
 

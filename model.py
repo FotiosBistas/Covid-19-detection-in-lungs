@@ -9,17 +9,16 @@ from SARS_CoV_2_CT.preprocess import train_dataset,test_dataset,validation_datas
 
 # Define the convnet architecture
 model = tf.keras.Sequential([
-    layers.Conv2D(128, (3, 3), activation='relu', input_shape=(224, 224, 3)),
+    layers.Conv2D(64, (3, 3), activation='relu', input_shape=(224, 224, 1)),
+    layers.MaxPooling2D((2, 2)),
+    layers.Conv2D(128, (3, 3), activation='relu'),
     layers.MaxPooling2D((2, 2)),
     layers.Conv2D(192, (3, 3), activation='relu'),
     layers.MaxPooling2D((2, 2)),
     layers.Dropout(0.3),
-    layers.Conv2D(256, (3, 3), activation='relu'),
-    layers.MaxPooling2D((2, 2)),
-    layers.Dropout(0.3),
     layers.Flatten(),
     layers.Dense(128, activation='relu'),
-    layers.Dense(64, activation='relu'),
+    layers.Dense(64,activation='relu'),
     layers.Dense(32, activation='relu'),
     layers.Dropout(0.3),
     layers.Dense(1, activation='sigmoid')
