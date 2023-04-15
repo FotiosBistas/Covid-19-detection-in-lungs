@@ -1,7 +1,7 @@
 import tensorflow as tf 
 import os 
 
-
+from keras import layers 
 
 batchSize = 64
 imageSize = (224,224)
@@ -37,7 +37,22 @@ rescale = tf.keras.layers.Rescaling(
     scale = 1./255,
 )
 
+subset_size = 0.3
+augment_data = tf.keras.Sequential(
+    [
+        layers.RandomFlip("horizontal_and_vertical"),
+        layers.RandomRotation(0.2),
+    ]
+)
+
+
+augmented_data = train_dataset.map(lambda image,label: (augment_data(image), label))
+augmented_data = augmented_data.map(lambda image,label: (rescale(image), label))
+augmented_data = augmented_data.take(3)
 train_dataset = train_dataset.map(lambda image,label: (rescale(image), label))
+train_dataset = train_dataset.concatenate(augmented_data)
+train_dataset = train_dataset.shuffle(400)
+
 validation_dataset = validation_dataset.map(lambda image,label: (rescale(image), label))
 test_dataset = test_dataset.map(lambda image,label: (rescale(image), label))
 
