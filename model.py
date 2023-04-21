@@ -17,16 +17,19 @@ model = tf.keras.Sequential([
     layers.MaxPooling2D((2, 2)),
     layers.Dropout(0.3),
     layers.Flatten(),
-    layers.Dense(128, activation='relu'),
-    layers.Dense(64,activation='relu'),
-    layers.Dense(32, activation='relu'),
+    layers.Dense(128,activation='relu'),
+    layers.Dense(64, activation='relu'),
+    layers.Dropout(0.3),
+    layers.Dense(32,activation='relu'),
+    layers.Dense(16,activation='relu'),
+    layers.Dense(8,activation='relu'),
     layers.Dropout(0.3),
     layers.Dense(1, activation='sigmoid')
 ])
 
 # Define callbacks
 
-#earlyStopping = EarlyStopping(monitor='val_loss', patience=3, verbose=0, mode='min')
+earlyStopping = EarlyStopping(monitor='val_loss', patience=5, verbose=1, mode='min')
 mcp_save = ModelCheckpoint('.mdl_wts.hdf5', save_best_only=True, monitor='val_loss', mode='min')
 reduce_lr_loss = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=2, verbose=1, min_delta=1e-4, mode='min')
 
@@ -38,8 +41,8 @@ model.compile(
     )
 
 # Train the model
-history = model.fit(train_dataset, epochs=10, validation_data=validation_dataset,
-                    callbacks=[mcp_save,reduce_lr_loss])
+history = model.fit(train_dataset, epochs=15, validation_data=validation_dataset,
+                    callbacks=[mcp_save,earlyStopping,reduce_lr_loss])
 
 # Load the best model
 best_model = tf.keras.models.load_model('.mdl_wts.hdf5')
