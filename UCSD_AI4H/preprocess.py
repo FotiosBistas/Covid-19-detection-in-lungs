@@ -1,24 +1,25 @@
-from read_images import readImageNames 
 import tensorflow as tf 
 from tensorflow.keras import datasets,layers 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-from read_images import loadImage
+from UCSD_AI4H.read_images import loadImage,readImageNames
 import numpy as np 
 BATCH_SIZE =64
 
 
+covid_directory_names = "C:\\Users\\fotis\\GitHub\\Covid-19-detection-in-lungs\\UCSD_AI4H\\CT_COVID_IMG_NAMES\\"
+non_covid_directory_names = "C:\\Users\\fotis\\GitHub\\Covid-19-detection-in-lungs\\UCSD_AI4H\\CT_NON_COVID_IMG_NAMES\\"
 
 covid_directory = "C:\\Users\\fotis\\GitHub\\Covid-19-detection-in-lungs\\UCSD_AI4H\\CT_COVID\\"
 non_covid_directory = "C:\\Users\\fotis\\GitHub\\Covid-19-detection-in-lungs\\UCSD_AI4H\\CT_NonCOVID\\"
 
-test_covid_image_names = readImageNames("CT_COVID_IMG_NAMES/testCT_COVID.txt")
-train_covid_image_names = readImageNames("CT_COVID_IMG_NAMES/trainCT_COVID.txt")
-validation_covid_images_names = readImageNames("CT_COVID_IMG_NAMES/valCT_COVID.txt")
+test_covid_image_names = readImageNames(covid_directory_names + "/testCT_COVID.txt")
+train_covid_image_names = readImageNames(covid_directory_names + "/trainCT_COVID.txt")
+validation_covid_images_names = readImageNames(covid_directory_names + "/valCT_COVID.txt")
 
-test_non_covid_image_names = readImageNames("CT_NON_COVID_IMG_NAMES/testCT_NON_COVID.txt")
-train_non_covid_image_names = readImageNames("CT_NON_COVID_IMG_NAMES/trainCT_NON_COVID.txt")
-validation_non_covid_images_names = readImageNames("CT_NON_COVID_IMG_NAMES/valCT_NON_COVID.txt")
+test_non_covid_image_names = readImageNames(non_covid_directory_names + "/testCT_NON_COVID.txt")
+train_non_covid_image_names = readImageNames(non_covid_directory_names + "/trainCT_NON_COVID.txt")
+validation_non_covid_images_names = readImageNames(non_covid_directory_names + "/valCT_NON_COVID.txt")
 
 
 train_filenames = [(covid_directory + filename) for filename in train_covid_image_names] + [(non_covid_directory + filename) for filename in train_non_covid_image_names]

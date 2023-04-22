@@ -4,7 +4,8 @@ from tensorflow.keras.callbacks import ModelCheckpoint, History, EarlyStopping, 
 
 import numpy as np 
 import matplotlib.pyplot as plt 
-from SARS_CoV_2_CT.preprocess import train_dataset,test_dataset,validation_dataset
+from UCSD_AI4H.preprocess import train_dataset,test_dataset,validation_dataset
+#from SARS_CoV_2_CT.preprocess import train_dataset,test_dataset,validation_dataset
 
 
 # Define the convnet architecture
